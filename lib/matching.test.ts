@@ -18,3 +18,14 @@ test("ranks best first and drops weak matches", () => {
   ]);
   assert.deepEqual(ranked.map((r) => r.id), ["best", "campus"]);
 });
+
+test("shared study style adds a point", () => {
+  const r = scoreMatch({ ...me, studyStyles: ["quiet"] }, { subject: "Art", goal: "homework", campusId: 1, profileSubjects: [], studyStyles: ["quiet", "music"] });
+  assert.equal(r.score, 3);
+  assert.deepEqual(r.reasons, ["same campus", "similar study style"]);
+});
+
+test("missing study styles do not match", () => {
+  const r = scoreMatch(me, { subject: "Art", goal: "homework", campusId: 9, profileSubjects: [] });
+  assert.equal(r.score, 0);
+});

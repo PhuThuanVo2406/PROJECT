@@ -11,7 +11,9 @@ Built with Next.js (App Router) and Supabase (Auth + Postgres with row level sec
 - **Student-only signup**: only `@student.hccs.edu` addresses can register, with an email verification link.
   The rule is enforced in the database (a trigger on `auth.users`), not just the signup form.
 - **Campus check-in** with subject, goal, duration and an optional note. Check-ins expire on their own.
-- **Studying now** directory with campus, subject and goal filters.
+- **Studying now** directory with campus, subject, goal and study-style filters, showing when each student checked in.
+- **Optional study spot** on check-in (library, classroom, room number...), visible only to signed-in students.
+- **Busy times** heatmap of check-ins by weekday and hour, per campus.
 - **Suggested study buddies**: rule-based matching on subject, goal, campus and shared courses (`lib/matching.ts`).
 - **Messaging** with live updates, plus **block** and **report**.
 - **Privacy toggle**: hidden students never appear in the directory, matches or campus counts.
@@ -31,7 +33,8 @@ In the Supabase dashboard, open **SQL Editor**, paste the contents of
 
 If HCC student emails use a different domain, change it in `is_allowed_student_email` in that file
 before running it, and set `NEXT_PUBLIC_STUDENT_EMAIL_DOMAIN` to match. Then run
-`supabase/migrations/20261008010000_official_campus_list.sql` the same way to load HCC's official campus list.
+`supabase/migrations/20261008010000_official_campus_list.sql` the same way to load HCC's official campus list. Then run
+`supabase/migrations/20261008020000_spots_styles_busy_times.sql` for study spots, study styles and busy times.
 
 ### 2. Configure Supabase Auth
 

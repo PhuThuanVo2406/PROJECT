@@ -1,6 +1,6 @@
 import { requireUser } from "@/lib/supabase/server";
 import CampusOptions from "@/components/CampusOptions";
-import { SUBJECTS } from "@/lib/constants";
+import { STUDY_STYLES, SUBJECTS } from "@/lib/constants";
 import { getCampuses } from "@/lib/queries";
 import type { Profile } from "@/lib/types";
 import { updateProfile } from "./actions";
@@ -40,6 +40,16 @@ export default async function ProfilePage({ searchParams }: { searchParams: Prom
           {SUBJECTS.map((s) => (
             <label key={s} className="inline">
               <input type="checkbox" name="subjects" value={s} defaultChecked={profile.subjects.includes(s)} /> {s}
+            </label>
+          ))}
+        </div>
+      </fieldset>
+      <fieldset className="card" style={{ margin: 0 }}>
+        <legend>How you like to study</legend>
+        <div className="grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(170px, 1fr))", gap: "0.4rem" }}>
+          {Object.entries(STUDY_STYLES).map(([k, v]) => (
+            <label key={k} className="inline">
+              <input type="checkbox" name="study_styles" value={k} defaultChecked={(profile.study_styles ?? []).includes(k)} /> {v}
             </label>
           ))}
         </div>
