@@ -30,8 +30,8 @@ In the Supabase dashboard, open **SQL Editor**, paste the contents of
 (Or, with the Supabase CLI linked to your project: `supabase db push`.)
 
 If HCC student emails use a different domain, change it in `is_allowed_student_email` in that file
-before running it, and set `NEXT_PUBLIC_STUDENT_EMAIL_DOMAIN` to match. The campus list at the bottom
-of the file is a starting point; edit it to match HCC's official list.
+before running it, and set `NEXT_PUBLIC_STUDENT_EMAIL_DOMAIN` to match. Then run
+`supabase/migrations/20261008010000_official_campus_list.sql` the same way to load HCC's official campus list.
 
 ### 2. Configure Supabase Auth
 

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { getCampuses } from "@/lib/queries";
 
 export const dynamic = "force-dynamic";
 
@@ -13,8 +14,9 @@ export default async function Home() {
   } = await supabase.auth.getUser();
   if (user) redirect("/dashboard");
 
-  const { data } = await supabase.rpc("campus_activity");
-  const activity = (data ?? []) as Activity[];
+  const [{ data }, campuses] = await Promise.all([supabase.rpc("campus_activity"), getCampuses(supabase)]);
+  const listed = new Set(campuses.map((c) => c.id));
+  const activity = ((data ?? []) as Activity[]).filter((c) => listed.has(c.campus_id));
   const total = activity.reduce((n, c) => n + Number(c.active_count), 0);
   const max = Math.max(1, ...activity.map((c) => Number(c.active_count)));
 

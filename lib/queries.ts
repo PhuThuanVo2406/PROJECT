@@ -3,7 +3,10 @@ import type { ActiveStudent } from "@/components/StudentCard";
 import type { Campus, CheckIn, Profile } from "./types";
 
 export async function getCampuses(supabase: SupabaseClient) {
-  const { data } = await supabase.from("campuses").select("id, slug, name").order("name");
+  const { data } = await supabase.from("campuses").select("id, slug, name, college, sort_order")
+    // Campuses without a college are retired ones kept only for old records.
+    .neq("college", "")
+    .order("sort_order").order("name");
   return (data ?? []) as Campus[];
 }
 

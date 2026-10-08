@@ -1,4 +1,5 @@
 import { requireUser } from "@/lib/supabase/server";
+import CampusOptions from "@/components/CampusOptions";
 import { DURATIONS, GOALS, SUBJECTS, type Goal } from "@/lib/constants";
 import { getActiveStudents, getCampuses, getMyActiveCheckIn } from "@/lib/queries";
 import { rankMatches } from "@/lib/matching";
@@ -43,7 +44,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
           <div className="row">
             <span className="badge">{active.subject}</span>
             <span className="badge ok">{GOALS[active.goal as Goal]}</span>
-            <span className="muted">{campusName(active.campus_id)} campus · <Countdown until={active.expires_at} /></span>
+            <span className="muted">{campusName(active.campus_id)} · <Countdown until={active.expires_at} /></span>
           </div>
           <form action={checkOut}>
             <input type="hidden" name="check_in_id" value={active.id} />
@@ -52,14 +53,14 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
         </section>
       ) : (
         <form action={checkIn} className="card stack">
-          <h2>Check in to a campus</h2>
+          <h2>Check in</h2>
           <p className="muted">Only your campus is shared. Your check-in ends automatically.</p>
           <div className="grid">
             <label>
               Campus
               <select name="campus_id" required defaultValue={profile?.home_campus_id ?? ""}>
                 <option value="" disabled>Choose a campus</option>
-                {campuses.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+                <CampusOptions campuses={campuses} />
               </select>
             </label>
             <label>
