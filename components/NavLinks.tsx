@@ -3,13 +3,14 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CalendarClock, LayoutDashboard, Menu, MessageCircle, Shield, Users, X } from "lucide-react";
+import { CalendarClock, Info, LayoutDashboard, Menu, MessageCircle, Shield, Users, X } from "lucide-react";
 
 const LINKS = [
   { href: "/dashboard", label: "Dashboard", Icon: LayoutDashboard },
   { href: "/study-now", label: "Studying now", Icon: Users },
   { href: "/busy-times", label: "Busy times", Icon: CalendarClock },
   { href: "/messages", label: "Messages", Icon: MessageCircle },
+  { href: "/about", label: "About Us", Icon: Info },
 ];
 
 /** Center nav links on desktop; a hamburger with a drop-down panel on mobile. */

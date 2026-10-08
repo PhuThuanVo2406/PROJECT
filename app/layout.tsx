@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
+import Link from "next/link";
 import Nav from "@/components/Nav";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import "./globals.css";
@@ -48,6 +49,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <>
             <Nav />
             <main className="container">{children}</main>
+            <footer className="site-footer">
+              <div className="site-footer-inner">
+                <span>HCC Study Buddy</span>
+                <nav aria-label="Footer">
+                  <Link href="/about">About Us</Link>
+                </nav>
+              </div>
+            </footer>
           </>
         ) : (
           <SetupNeeded />
