@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Users } from "lucide-react";
 import { requireUser } from "@/lib/supabase/server";
 import { getCampuses } from "@/lib/queries";
 import CampusOptions from "@/components/CampusOptions";
@@ -33,28 +34,34 @@ export default async function BusyTimes({ searchParams }: { searchParams: Promis
   const campusName = campuses.find((c) => c.id === campusId)?.name ?? "All campuses";
 
   return (
-    <div className="stack">
-      <div className="row">
-        <h1 style={{ marginRight: "auto" }}>Busy times</h1>
-        <Link href="/study-now">Who&apos;s studying now</Link>
-      </div>
-      <p className="muted">
-        How many students were checked in at each hour over the last 4 weeks (Houston time). Use it to pick
-        a time when classmates are around.
-      </p>
+    <div className="stack-lg">
+      <header className="page-header animate-in">
+        <div>
+          <p className="eyebrow">Planner / Last 4 weeks</p>
+          <h1>Busy times</h1>
+          <p>
+            How many students were checked in at each hour over the last 4 weeks (Houston time). Use it to pick
+            a time when classmates are around.
+          </p>
+        </div>
+        <Link href="/study-now" className="btn btn-outline">
+          <Users size={18} aria-hidden="true" />
+          Who&apos;s studying now
+        </Link>
+      </header>
 
-      <form className="card row" method="get">
-        <label style={{ flex: 1 }}>
+      <form className="card row animate-in" method="get" style={{ alignItems: "flex-end" }}>
+        <label style={{ flex: 1, minWidth: 220 }}>
           Campus
           <select name="campus" defaultValue={sp.campus ?? ""}>
             <option value="">All campuses</option>
             <CampusOptions campuses={campuses} />
           </select>
         </label>
-        <button type="submit" style={{ alignSelf: "flex-end" }}>Show</button>
+        <button type="submit">Show</button>
       </form>
 
-      <section className="card stack">
+      <section className="card stack animate-in">
         <h2>{campusName}</h2>
         {error && <p className="error">Could not load busy times.</p>}
         {!error && max === 0 && (

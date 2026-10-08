@@ -1,17 +1,31 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { Inter, Playfair_Display } from "next/font/google";
 import Nav from "@/components/Nav";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import "./globals.css";
+
+const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter" });
+const serif = Playfair_Display({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-serif",
+});
 
 export const metadata: Metadata = {
   title: "HCC Study Buddy",
   description: "Find HCC classmates studying on your campus right now.",
 };
 
+export const viewport: Viewport = {
+  themeColor: "#16181b",
+  colorScheme: "dark",
+};
+
 function SetupNeeded() {
   return (
     <main className="container">
-      <div className="card stack">
+      <div className="card stack" style={{ maxWidth: 640, margin: "0 auto" }}>
         <h1>Almost there: the site needs its Supabase settings</h1>
         <p>
           In Vercel, open this project, go to <strong>Settings &gt; Environment Variables</strong>, and add{" "}
@@ -28,7 +42,7 @@ function SetupNeeded() {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${serif.variable}`}>
       <body>
         {isSupabaseConfigured ? (
           <>
