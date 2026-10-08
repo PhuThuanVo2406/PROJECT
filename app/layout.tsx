@@ -1,13 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Instrument_Serif } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import Nav from "@/components/Nav";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter" });
-const serif = Instrument_Serif({
+const serif = Playfair_Display({
   subsets: ["latin"],
-  weight: "400",
   style: ["normal", "italic"],
   display: "swap",
   variable: "--font-serif",

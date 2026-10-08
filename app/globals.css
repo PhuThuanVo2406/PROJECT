@@ -671,7 +671,7 @@ button:disabled, .btn[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed
 @media (min-width: 640px) { .auth-card { padding: 48px var(--space-10); } }
 .auth-head { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: var(--space-8); }
 .auth-head .brand-mark { margin-bottom: var(--space-6); }
-.auth-head h1 { font-size: 2.5rem; margin-bottom: var(--space-3); }
+.auth-head h1 { font-size: 2.25rem; margin-bottom: var(--space-3); }
 .auth-head p { color: var(--muted); margin: 0; font-size: var(--text-sm); }
 .auth-card .stack { gap: var(--space-6); }
 .auth-foot { margin: var(--space-8) 0 0; padding-top: var(--space-5); border-top: 1px solid var(--border); text-align: center; font-size: var(--text-sm); color: var(--muted); }
