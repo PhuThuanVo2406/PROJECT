@@ -58,7 +58,7 @@ export default async function ProfilePage({ searchParams }: { searchParams: Prom
         Short bio
         <textarea name="bio" maxLength={280} rows={3} defaultValue={profile.bio ?? ""} />
       </label>
-      <label className="inline">
+      <label className="inline" id="privacy">
         <input type="checkbox" name="is_visible" defaultChecked={profile.is_visible} />
         Show me to other students when I check in
       </label>
