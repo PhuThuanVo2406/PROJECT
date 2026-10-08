@@ -47,3 +47,43 @@ export const REPORT_REASONS = {
 export function isGoal(value: string): value is Goal {
   return Object.prototype.hasOwnProperty.call(GOALS, value);
 }
+
+// Keys must match the check constraint on check_ins.spot.
+export const SPOTS = {
+  library: "Library",
+  tutoring_center: "Tutoring / learning center",
+  student_lounge: "Student lounge",
+  cafeteria: "Cafeteria",
+  classroom: "Classroom",
+  computer_lab: "Computer lab",
+  outdoors: "Outdoors",
+  other: "Somewhere else",
+} as const;
+
+export type Spot = keyof typeof SPOTS;
+
+export function isSpot(value: string): value is Spot {
+  return Object.prototype.hasOwnProperty.call(SPOTS, value);
+}
+
+export const STUDY_STYLES = {
+  quiet: "Quiet, heads down",
+  discussion: "Talk it through",
+  pomodoro: "Pomodoro breaks",
+  music: "Music is fine",
+  quiz: "Quiz each other",
+  whiteboard: "Whiteboard problems",
+} as const;
+
+export type StudyStyle = keyof typeof STUDY_STYLES;
+
+const TIME_ZONE = "America/Chicago";
+
+/** "3:45 PM · 20 min ago" for a check-in start time. */
+export function formatStarted(iso: string, now = Date.now()) {
+  const at = new Date(iso);
+  const clock = at.toLocaleTimeString("en-US", { timeZone: TIME_ZONE, hour: "numeric", minute: "2-digit" });
+  const mins = Math.max(0, Math.round((now - at.getTime()) / 60000));
+  const ago = mins < 1 ? "just now" : mins < 60 ? `${mins} min ago` : `${Math.floor(mins / 60)} hr ${mins % 60} min ago`;
+  return `${clock} · ${ago}`;
+}

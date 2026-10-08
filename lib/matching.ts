@@ -5,9 +5,10 @@ export type MatchInput = {
   goal: string;
   campusId: number;
   profileSubjects: string[];
+  studyStyles?: string[];
 };
 
-export type MatchReason = "same subject" | "same goal" | "same campus" | "shared course list";
+export type MatchReason = "same subject" | "same goal" | "same campus" | "shared course list" | "similar study style";
 
 export function scoreMatch(me: MatchInput, other: MatchInput) {
   let score = 0;
@@ -30,6 +31,11 @@ export function scoreMatch(me: MatchInput, other: MatchInput) {
   if (other.profileSubjects.some((s) => mine.has(norm(s)))) {
     score += 1;
     reasons.push("shared course list");
+  }
+  const myStyles = new Set(me.studyStyles ?? []);
+  if ((other.studyStyles ?? []).some((s) => myStyles.has(s))) {
+    score += 1;
+    reasons.push("similar study style");
   }
   return { score, reasons };
 }

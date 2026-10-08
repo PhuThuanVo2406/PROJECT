@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireUser } from "@/lib/supabase/server";
-import { DURATIONS, isGoal } from "@/lib/constants";
+import { DURATIONS, isGoal, isSpot } from "@/lib/constants";
 
 export async function checkIn(formData: FormData) {
   const { supabase } = await requireUser();
@@ -12,17 +12,21 @@ export async function checkIn(formData: FormData) {
   const goal = String(formData.get("goal") ?? "");
   const minutes = Number(formData.get("minutes"));
   const note = String(formData.get("note") ?? "").trim();
+  const spot = String(formData.get("spot") ?? "");
+  const spotDetail = String(formData.get("spot_detail") ?? "").trim().slice(0, 60);
 
   if (!campusId || !subject || !isGoal(goal) || !DURATIONS.includes(minutes as (typeof DURATIONS)[number])) {
     redirect("/dashboard?error=" + encodeURIComponent("Pick a campus, subject, goal and duration."));
   }
 
-  const { error } = await supabase.rpc("start_check_in", {
+  const { error } = await supabase.rpc("check_in_now", {
     p_campus_id: campusId,
     p_subject: subject,
     p_goal: goal,
     p_minutes: minutes,
     p_note: note || null,
+    p_spot: isSpot(spot) ? spot : null,
+    p_spot_detail: spotDetail || null,
   });
   if (error) redirect("/dashboard?error=" + encodeURIComponent(error.message));
 

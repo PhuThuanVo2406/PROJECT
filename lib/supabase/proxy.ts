@@ -2,7 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { SUPABASE_ANON_KEY, SUPABASE_URL, isSupabaseConfigured } from "./config";
 import { NextResponse, type NextRequest } from "next/server";
 
-const PROTECTED = ["/dashboard", "/study-now", "/messages", "/profile", "/admin"];
+const PROTECTED = ["/dashboard", "/study-now", "/busy-times", "/messages", "/profile", "/admin"];
 
 export async function updateSession(request: NextRequest) {
   // Without settings the layout shows a setup message instead of crashing.

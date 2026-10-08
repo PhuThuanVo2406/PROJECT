@@ -23,18 +23,18 @@ export async function getMyActiveCheckIn(supabase: SupabaseClient, userId: strin
   return data as CheckIn | null;
 }
 
-type Row = CheckIn & { profiles: Pick<Profile, "display_name" | "major" | "subjects"> | null };
+type Row = CheckIn & { profiles: Pick<Profile, "display_name" | "major" | "subjects" | "study_styles"> | null };
 
 /** Other students' active check-ins (RLS hides hidden and blocked students). */
 export async function getActiveStudents(
   supabase: SupabaseClient,
   userId: string,
   campuses: Campus[],
-  filters: { campusId?: number; subject?: string; goal?: string } = {},
+  filters: { campusId?: number; subject?: string; goal?: string; style?: string } = {},
 ) {
   let q = supabase
     .from("check_ins")
-    .select("*, profiles(display_name, major, subjects)")
+    .select("*, profiles(display_name, major, subjects, study_styles)")
     .neq("user_id", userId)
     .is("ended_at", null)
     .gt("expires_at", new Date().toISOString())
@@ -48,6 +48,7 @@ export async function getActiveStudents(
   const campusName = new Map(campuses.map((c) => [c.id, c.name]));
   return ((data ?? []) as Row[])
     .filter((r) => r.profiles)
+    .filter((r) => !filters.style || (r.profiles!.study_styles ?? []).includes(filters.style))
     .map((r) => ({
       student: {
         checkInId: r.id,
@@ -58,6 +59,10 @@ export async function getActiveStudents(
         subject: r.subject,
         goal: r.goal,
         note: r.note,
+        spot: r.spot,
+        spotDetail: r.spot_detail,
+        studyStyles: r.profiles!.study_styles ?? [],
+        startedAt: r.started_at,
         expiresAt: r.expires_at,
       } satisfies ActiveStudent,
       profileSubjects: r.profiles!.subjects ?? [],

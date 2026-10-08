@@ -1,6 +1,6 @@
 import { requireUser } from "@/lib/supabase/server";
 import CampusOptions from "@/components/CampusOptions";
-import { DURATIONS, GOALS, SUBJECTS, type Goal } from "@/lib/constants";
+import { DURATIONS, GOALS, SPOTS, SUBJECTS, type Goal } from "@/lib/constants";
 import { getActiveStudents, getCampuses, getMyActiveCheckIn } from "@/lib/queries";
 import { rankMatches } from "@/lib/matching";
 import Countdown from "@/components/Countdown";
@@ -23,10 +23,10 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
   if (active) {
     const others = await getActiveStudents(supabase, user.id, campuses);
     matches = rankMatches(
-      { subject: active.subject, goal: active.goal, campusId: active.campus_id, profileSubjects: profile?.subjects ?? [] },
+      { subject: active.subject, goal: active.goal, campusId: active.campus_id, profileSubjects: profile?.subjects ?? [], studyStyles: profile?.study_styles ?? [] },
       others.map((o) => ({
         student: o.student,
-        match: { subject: o.student.subject, goal: o.student.goal, campusId: o.campusId, profileSubjects: o.profileSubjects },
+        match: { subject: o.student.subject, goal: o.student.goal, campusId: o.campusId, profileSubjects: o.profileSubjects, studyStyles: o.student.studyStyles },
       })),
     );
   }
@@ -83,9 +83,23 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
               </select>
             </label>
           </div>
+          <div className="grid">
+            <label>
+              Where on campus (optional)
+              <select name="spot" defaultValue="">
+                <option value="">Don't say</option>
+                {Object.entries(SPOTS).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
+              </select>
+            </label>
+            <label>
+              Room or area (optional)
+              <input name="spot_detail" maxLength={60} placeholder="e.g. Room 214, 2nd floor" />
+            </label>
+          </div>
+          <p className="muted">Only signed-in HCC students can see where you are.</p>
           <label>
             Note (optional)
-            <input name="note" maxLength={140} placeholder="e.g. 2nd floor library, working on Ch. 4" />
+            <input name="note" maxLength={140} placeholder="e.g. working on Ch. 4, come say hi" />
           </label>
           {error && <p className="error">{error}</p>}
           <button type="submit">Check in</button>
