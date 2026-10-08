@@ -36,6 +36,7 @@ export default async function Nav() {
           </>
         ) : (
           <div className="nav-right">
+            <Link href="/about" className="btn btn-ghost nav-about">About Us</Link>
             <Link href="/login" className="btn btn-ghost">Log in</Link>
             <Link href="/signup" className="btn">Sign up</Link>
           </div>
