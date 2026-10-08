@@ -1,6 +1,6 @@
 import type { Goal } from "./constants";
 
-export type Campus = { id: number; slug: string; name: string };
+export type Campus = { id: number; slug: string; name: string; college: string; sort_order: number };
 
 export type Profile = {
   id: string;

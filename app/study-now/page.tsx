@@ -1,4 +1,5 @@
 import { requireUser } from "@/lib/supabase/server";
+import CampusOptions from "@/components/CampusOptions";
 import { GOALS, SUBJECTS } from "@/lib/constants";
 import { getActiveStudents, getCampuses } from "@/lib/queries";
 import StudentCard from "@/components/StudentCard";
@@ -25,7 +26,7 @@ export default async function StudyNow({
           Campus
           <select name="campus" defaultValue={sp.campus ?? ""}>
             <option value="">All campuses</option>
-            {campuses.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+            <CampusOptions campuses={campuses} />
           </select>
         </label>
         <label style={{ flex: 1 }}>

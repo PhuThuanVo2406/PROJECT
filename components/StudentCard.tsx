@@ -26,7 +26,7 @@ export default function StudentCard({ s, reasons }: { s: ActiveStudent; reasons?
         <span className="badge ok">{GOALS[s.goal]}</span>
       </div>
       <div className="muted">
-        {s.campus} campus · <Countdown until={s.expiresAt} />
+        {s.campus} · <Countdown until={s.expiresAt} />
       </div>
       {s.note && <p style={{ margin: 0 }}>{s.note}</p>}
       {reasons && reasons.length > 0 && <div className="muted">Match: {reasons.join(", ")}</div>}

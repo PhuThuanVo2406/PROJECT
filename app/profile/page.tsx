@@ -1,4 +1,5 @@
 import { requireUser } from "@/lib/supabase/server";
+import CampusOptions from "@/components/CampusOptions";
 import { SUBJECTS } from "@/lib/constants";
 import { getCampuses } from "@/lib/queries";
 import type { Profile } from "@/lib/types";
@@ -30,7 +31,7 @@ export default async function ProfilePage({ searchParams }: { searchParams: Prom
         Home campus
         <select name="home_campus_id" defaultValue={profile.home_campus_id ?? ""}>
           <option value="">Not set</option>
-          {campuses.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+          <CampusOptions campuses={campuses} />
         </select>
       </label>
       <fieldset className="card" style={{ margin: 0 }}>
