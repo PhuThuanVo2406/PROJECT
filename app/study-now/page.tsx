@@ -28,7 +28,7 @@ export default async function StudyNow({
         <div>
           <p className="eyebrow">Directory / Right now</p>
           <h1>Studying now</h1>
-          <p>Classmates checked in across HCC campuses right now.</p>
+          <p>Classmates checked in across every campus right now.</p>
         </div>
         <Link href="/busy-times" className="btn btn-outline">
           <CalendarClock size={18} aria-hidden="true" />

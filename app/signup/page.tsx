@@ -23,7 +23,7 @@ export default function SignupPage() {
     const displayName = String(form.get("display_name")).trim();
 
     if (!isStudentEmail(email)) {
-      setError(`Use your HCC student email (@${STUDENT_EMAIL_DOMAIN}).`);
+      setError(`Use your student email (@${STUDENT_EMAIL_DOMAIN}).`);
       return;
     }
     if (password.length < 8) {
@@ -85,7 +85,7 @@ export default function SignupPage() {
         <div className="auth-head">
           <LogoMark size="lg" />
           <h1>Create your account</h1>
-          <p>Find classmates studying on your HCC campus.</p>
+          <p>Find classmates studying on your campus.</p>
         </div>
         <div className="stack">
           <label>
@@ -102,7 +102,7 @@ export default function SignupPage() {
               placeholder={`you@${STUDENT_EMAIL_DOMAIN}`}
               aria-describedby="email-hint"
             />
-            <span id="email-hint" className="field-hint">Only HCC students can join. We&apos;ll email you a link to verify.</span>
+            <span id="email-hint" className="field-hint">Only students can join. We&apos;ll email you a link to verify.</span>
           </label>
           <label>
             Password
@@ -127,7 +127,7 @@ export default function SignupPage() {
       </form>
       <p className="auth-trust">
         <Lock size={14} aria-hidden="true" />
-        Only signed-in HCC students can see your check-ins.
+        Only signed-in students can see your check-ins.
       </p>
     </div>
   );

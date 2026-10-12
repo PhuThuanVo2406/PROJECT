@@ -21,10 +21,10 @@ export default async function Nav() {
   return (
     <header className="nav">
       <nav className="nav-inner" aria-label="Main">
-        <Link href={user ? "/dashboard" : "/"} className="brand" aria-label="HCC Study Buddy home">
+        <Link href={user ? "/dashboard" : "/"} className="brand" aria-label="Study Buddy home">
           <LogoMark />
           <span className="brand-name">
-            <span>HCC</span>Study Buddy
+            Study Buddy
           </span>
         </Link>
         {user ? (

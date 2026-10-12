@@ -86,7 +86,7 @@ function LoginForm() {
       </form>
       <p className="auth-trust">
         <Lock size={14} aria-hidden="true" />
-        For HCC students only, verified by student email.
+        For students only, verified by student email.
       </p>
     </div>
   );

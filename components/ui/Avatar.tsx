@@ -1,5 +1,14 @@
-// Muted slate, stone and mist tones; white text passes WCAG AA on each.
-const COLORS = ["#3f5563", "#4a5a52", "#5b4f63", "#62514a", "#3e4f6b", "#4d5b5e", "#5a5048", "#41566e"];
+// Deep blue, indigo, teal and violet gradients; white text passes WCAG AA on each.
+const COLORS = [
+  "linear-gradient(135deg, #1e40af, #2563eb)",
+  "linear-gradient(135deg, #3730a3, #4f46e5)",
+  "linear-gradient(135deg, #115e59, #0f766e)",
+  "linear-gradient(135deg, #1e3a8a, #0369a1)",
+  "linear-gradient(135deg, #5b21b6, #6d28d9)",
+  "linear-gradient(135deg, #155e75, #0e7490)",
+  "linear-gradient(135deg, #1e3a8a, #4338ca)",
+  "linear-gradient(135deg, #0c4a6e, #1d4ed8)",
+];
 
 export function initials(name: string) {
   const parts = name.trim().split(/\s+/).filter(Boolean);
