@@ -35,11 +35,17 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   const path = request.nextUrl.pathname;
-  if (!user && PROTECTED.some((p) => path === p || path.startsWith(p + "/"))) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/login";
-    url.searchParams.set("next", path);
-    return NextResponse.redirect(url);
+  if (PROTECTED.some((p) => path === p || path.startsWith(p + "/"))) {
+    // Unverified accounts never get in, even if email confirmation is ever
+    // switched off in Supabase.
+    if (!user || !user.email_confirmed_at) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/login";
+      url.search = "";
+      url.searchParams.set("next", path);
+      if (user) url.searchParams.set("error", "Verify your email first. Check your student inbox.");
+      return NextResponse.redirect(url);
+    }
   }
 
   return response;

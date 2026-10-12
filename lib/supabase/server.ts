@@ -33,6 +33,6 @@ export async function requireUser() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
+  if (!user || !user.email_confirmed_at) redirect("/login");
   return { supabase, user };
 }
