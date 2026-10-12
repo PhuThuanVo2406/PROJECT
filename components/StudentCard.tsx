@@ -33,7 +33,7 @@ export default function StudentCard({ s, reasons }: { s: ActiveStudent; reasons?
         <Avatar name={s.name} seed={s.userId} />
         <div style={{ flex: 1 }}>
           <p className="person-name">{s.name}</p>
-          <p className="person-sub">{s.major ?? "HCC student"}</p>
+          <p className="person-sub">{s.major ?? "Student"}</p>
         </div>
         <span className="live-pill" style={{ alignSelf: "flex-start" }}>
           <span className="live-dot" aria-hidden="true" />

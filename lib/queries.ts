@@ -55,7 +55,7 @@ export async function getActiveStudents(
         userId: r.user_id,
         name: r.profiles!.display_name,
         major: r.profiles!.major,
-        campus: campusName.get(r.campus_id) ?? "HCC",
+        campus: campusName.get(r.campus_id) ?? "Campus",
         subject: r.subject,
         goal: r.goal,
         note: r.note,

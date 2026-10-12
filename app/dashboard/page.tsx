@@ -22,7 +22,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
     getMyActiveCheckIn(supabase, user.id),
   ]);
 
-  const campusName = (id: number) => campuses.find((c) => c.id === id)?.name ?? "HCC";
+  const campusName = (id: number) => campuses.find((c) => c.id === id)?.name ?? "Campus";
 
   // Everyone else checked in right now, for the stats and the list below.
   const others = await getActiveStudents(supabase, user.id, campuses);
@@ -52,8 +52,8 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
 
       <header className="page-header animate-in">
         <div>
-          <p className="eyebrow">Dashboard / HCC Study Buddy</p>
-          <h1>Welcome back, {firstName}</h1>
+          <p className="eyebrow">Dashboard</p>
+          <h1>Welcome back, <span className="text-gradient">{firstName}</span></h1>
           <p>
             {active
               ? "You're checked in. Here's who is studying around you."
@@ -89,7 +89,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
             <p className="stat-label">Classmates studying now</p>
             <p className="stat-value big">{others.length}</p>
             <p className="stat-meta">
-              {myCampus ? `${atMyCampus} at ${myCampus}` : "Across all HCC campuses"}
+              {myCampus ? `${atMyCampus} at ${myCampus}` : "Across every campus"}
             </p>
           </div>
         </div>
@@ -208,7 +208,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
             <div className="row" style={{ justifyContent: "space-between" }}>
               <p className="caption row" style={{ gap: 6, margin: 0 }}>
                 <Lock size={14} aria-hidden="true" />
-                Only signed-in HCC students can see where you are.
+                Only signed-in students can see where you are.
               </p>
               <SubmitButton className="btn-lg" pendingText="Checking in...">
                 Check in

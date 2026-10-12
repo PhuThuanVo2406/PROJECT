@@ -2,24 +2,25 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import Link from "next/link";
 import Nav from "@/components/Nav";
+import Spotlight from "@/components/Spotlight";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter" });
 const serif = Playfair_Display({
   subsets: ["latin"],
-  style: ["normal", "italic"],
+  weight: ["600", "700"],
   display: "swap",
   variable: "--font-serif",
 });
 
 export const metadata: Metadata = {
-  title: "HCC Study Buddy",
-  description: "Find HCC classmates studying on your campus right now.",
+  title: "Study Buddy",
+  description: "Find classmates studying on your campus right now.",
 };
 
 export const viewport: Viewport = {
-  themeColor: "#16181b",
+  themeColor: "#050b1a",
   colorScheme: "dark",
 };
 
@@ -45,13 +46,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${inter.variable} ${serif.variable}`}>
       <body>
+        <Spotlight />
         {isSupabaseConfigured ? (
           <>
             <Nav />
             <main className="container">{children}</main>
             <footer className="site-footer">
               <div className="site-footer-inner">
-                <span>HCC Study Buddy</span>
+                <span>Study Buddy</span>
                 <nav aria-label="Footer">
                   <Link href="/about">About Us</Link>
                 </nav>

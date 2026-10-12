@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import { ExternalLink, Flag, ShieldAlert } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About Us · HCC Study Buddy",
+  title: "About Us · Study Buddy",
   description: "About College Project: Study Buddy, the Omega Sigma Chapter officers, and our community rules.",
 };
 
 const PTK_URL = "https://www.ptk.org/create-a-winning-college-project-plan/";
 const INSTAGRAM_URL = "https://www.instagram.com/omega.sigma.ptk/";
 
-// Copy below is used exactly as provided by the chapter. Do not edit wording.
+// Copy below is used exactly as provided by the chapter. Do not edit wording, except that the
+// "HCC" abbreviation is left out site-wide at the chapter's request (the full college name stays).
 const PROJECT_PARAGRAPHS = [
   "At Houston Community College, many students arrive for class, complete their coursework, and leave soon afterward. For students balancing work, family responsibilities, commuting, and demanding academic schedules, finding the time and confidence to build meaningful connections can be difficult. As a result, students may know the classrooms they attend, but not the people sitting beside them.",
   "This project was created in response to that everyday experience.",
@@ -19,7 +20,7 @@ const PROJECT_PARAGRAPHS = [
   "This approach reflects the purpose of Phi Theta Kappa's College Project, which encourages chapters to work with their colleges to identify meaningful campus needs and develop projects that support the institution's mission and create positive change. PTK also emphasizes that successful College Projects should involve collaboration, leadership development, communication, and measurable outcomes.",
   "For the Omega Sigma Chapter, this project represents service in its most direct form: students identifying a challenge they experience themselves and working together to improve the experience of their peers. It gives PTK members an opportunity not only to serve, but also to practice leadership, teamwork, problem-solving, communication, and project development in a real campus setting. PTK describes leadership as something students do, and its College Project program is specifically designed to create positive impact through student leadership and collaboration with college administration.",
   "Most importantly, this project was built by students, for students.",
-  "We understand that connection does not always require a large event, a formal organization, or a long conversation. Sometimes, it begins with one introduction, one shared question, or one invitation to study together. By creating more opportunities for those moments to happen, we hope to help students feel that they are not simply attending HCC, they are part of it.",
+  "We understand that connection does not always require a large event, a formal organization, or a long conversation. Sometimes, it begins with one introduction, one shared question, or one invitation to study together. By creating more opportunities for those moments to happen, we hope to help students feel that they are not simply attending Houston Community College, they are part of it.",
   "Our vision is simple: a campus where students have more opportunities to know one another, support one another, and feel that they belong.",
 ];
 
@@ -57,8 +58,8 @@ const RULE_GROUPS: { heading: string; rules: Rule[] }[] = [
   {
     heading: "Privacy & Security",
     rules: [
-      { n: 1, lead: "HCC students only", text: "Access is limited to currently enrolled Houston Community College students. Students must verify their account using an HCC email address." },
-      { n: 2, lead: "We do not track your location", text: "The platform shows only whether you are available on a particular HCC campus. We do not use GPS, collect precise location data, or track where you move on or around campus." },
+      { n: 1, lead: "Students only", text: "Access is limited to currently enrolled Houston Community College students. Students must verify their account using a student email address." },
+      { n: 2, lead: "We do not track your location", text: "The platform shows only whether you are available on a particular campus. We do not use GPS, collect precise location data, or track where you move on or around campus." },
       { n: 3, lead: "We collect only what we need", text: "We collect the minimum information necessary to provide the service. We do not sell your personal information or share it with third parties for advertising or marketing purposes." },
       { n: 4, lead: "You control your visibility", text: "You decide whether you want to appear as available to other students. You can turn off your presence at any time and may request that your information be deleted." },
       { n: 5, lead: "Keep sensitive information private", text: "Never share your phone number, home address, passwords, financial information, or other sensitive personal information through the platform." },
@@ -68,7 +69,7 @@ const RULE_GROUPS: { heading: string; rules: Rule[] }[] = [
   {
     heading: "Meeting Safely",
     rules: [
-      { n: 7, lead: "Meet on campus and in public spaces", text: "If you choose to meet another student, meet only on an HCC campus and use public, well-trafficked spaces such as libraries, study rooms, student lounges, or other common areas. Do not arrange meetings through the platform at private residences or other off-campus locations." },
+      { n: 7, lead: "Meet on campus and in public spaces", text: "If you choose to meet another student, meet only on campus and use public, well-trafficked spaces such as libraries, study rooms, student lounges, or other common areas. Do not arrange meetings through the platform at private residences or other off-campus locations." },
       { n: 8, lead: "You are always in control", text: "You never have to meet, respond to, or continue interacting with another student. You may decline an invitation or leave an interaction at any time. No explanation is required." },
       { n: 9, lead: "Let someone know", text: "When meeting someone new, consider telling a friend, classmate, or trusted person where you will be and who you are meeting." },
     ],
@@ -79,8 +80,8 @@ const RULE_GROUPS: { heading: string; rules: Rule[] }[] = [
       { n: 10, lead: "Treat others with respect", text: "Harassment, bullying, discrimination, hate speech, threats, intimidation, and unwanted contact are not permitted." },
       { n: 11, lead: "Be honest about who you are", text: "Use your real identity and do not impersonate another student or create an account intended to mislead others." },
       { n: 12, lead: "Keep the platform focused on student connection", text: "Spam, advertising, solicitation, scams, and promotional content are not permitted." },
-      { n: 13, lead: "Block and report when necessary", text: "If another student makes you uncomfortable or violates these rules, use the available block and report features. Reports will be reviewed by the project team and may be referred to appropriate HCC personnel when necessary." },
-      { n: 14, lead: "Violations may result in removal", text: "Students who violate these community rules may lose access to the platform and, when appropriate, may be referred to HCC officials or other relevant campus resources." },
+      { n: 13, lead: "Block and report when necessary", text: "If another student makes you uncomfortable or violates these rules, use the available block and report features. Reports will be reviewed by the project team and may be referred to appropriate college personnel when necessary." },
+      { n: 14, lead: "Violations may result in removal", text: "Students who violate these community rules may lose access to the platform and, when appropriate, may be referred to college officials or other relevant campus resources." },
     ],
   },
 ];
@@ -174,7 +175,7 @@ export default function AboutPage() {
       <section className="card about-section" aria-labelledby="about-rules">
         <h2 id="about-rules">Disclosure and Community Rules</h2>
         <p className="about-intro">
-          This platform is designed to help HCC students connect with one another in a safe, respectful, and
+          This platform is designed to help students connect with one another in a safe, respectful, and
           comfortable environment. By using the platform, students agree to follow the guidelines below.
         </p>
 
@@ -197,7 +198,7 @@ export default function AboutPage() {
             <ShieldAlert size={18} aria-hidden="true" />
             <span>
               This platform is not an emergency service. If you or someone else is in immediate danger, call 911 or
-              contact HCC Police directly. For non-emergency concerns or community-rule violations, use the designated
+              contact Houston Community College Police directly. For non-emergency concerns or community-rule violations, use the designated
               report option below.
             </span>
           </p>
