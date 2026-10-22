@@ -1,8 +1,10 @@
 import Link from "next/link";
+import { ArrowLeft, Send, ShieldAlert } from "lucide-react";
 import { notFound } from "next/navigation";
 import { requireUser } from "@/lib/supabase/server";
 import { REPORT_REASONS } from "@/lib/constants";
 import LiveRefresh from "@/components/LiveRefresh";
+import Avatar from "@/components/ui/Avatar";
 import type { Message } from "@/lib/types";
 import { blockUser, reportUser, sendMessage } from "../actions";
 
@@ -29,9 +31,9 @@ export default async function Thread({
     .maybeSingle();
   if (!other) {
     return (
-      <div className="card">
-        <p>This student is not available.</p>
-        <Link href="/messages">Back to messages</Link>
+      <div className="empty">
+        <h3>This student is not available.</h3>
+        <Link href="/messages" className="btn btn-outline">Back to messages</Link>
       </div>
     );
   }
@@ -56,15 +58,21 @@ export default async function Thread({
   return (
     <div className="stack">
       <LiveRefresh userId={user.id} />
-      <div className="row">
-        <Link href="/messages">← Messages</Link>
-        <h1 style={{ margin: 0 }}>{other.display_name}</h1>
-        {other.major && <span className="muted">{other.major}</span>}
-      </div>
+      <Link href="/messages" className="back-link">
+        <ArrowLeft size={16} aria-hidden="true" />
+        Messages
+      </Link>
+      <header className="chat-head animate-in">
+        <Avatar name={other.display_name} seed={other.id} />
+        <div className="grow">
+          <h1>{other.display_name}</h1>
+          {other.major && <p className="muted">{other.major}</p>}
+        </div>
+      </header>
 
-      <section className="card">
+      <section className="card chat" aria-label={`Conversation with ${other.display_name}`}>
         <div className="thread">
-          {messages.length === 0 && <p className="muted">Say hi and suggest where to meet on campus.</p>}
+          {messages.length === 0 && <p className="muted thread-empty">Say hi and suggest where to meet on campus.</p>}
           {messages.map((m) => (
             <div key={m.id} className={`bubble ${m.sender_id === user.id ? "mine" : ""}`}>
               {m.body}
@@ -72,21 +80,27 @@ export default async function Thread({
             </div>
           ))}
         </div>
-        <form action={sendMessage} className="row">
+        {error && <p className="alert error" role="alert">{error}</p>}
+        {notice && <p className="alert success">{notice}</p>}
+        <form action={sendMessage} className="composer">
           <input type="hidden" name="to" value={otherId} />
-          <input name="body" required maxLength={2000} placeholder="Write a message" autoComplete="off" style={{ flex: 1 }} />
-          <button type="submit">Send</button>
+          <input name="body" required maxLength={2000} placeholder="Write a message" autoComplete="off" aria-label="Message" />
+          <button type="submit">
+            <Send aria-hidden="true" />
+            Send
+          </button>
         </form>
-        {error && <p className="error">{error}</p>}
-        {notice && <p className="notice">{notice}</p>}
       </section>
 
       <details className="card">
-        <summary>Safety: block or report</summary>
-        <div className="stack" style={{ marginTop: "0.75rem" }}>
+        <summary>
+          <ShieldAlert size={18} aria-hidden="true" />
+          Safety: block or report
+        </summary>
+        <div className="stack safety">
           <form action={blockUser} className="row">
             <input type="hidden" name="user_id" value={otherId} />
-            <span className="muted" style={{ marginRight: "auto" }}>Blocking hides you from each other and stops messages.</span>
+            <span className="muted grow">Blocking hides you from each other and stops messages.</span>
             <button className="secondary" type="submit">Block</button>
           </form>
           <form action={reportUser} className="stack">
@@ -105,7 +119,7 @@ export default async function Thread({
             <label className="inline">
               <input type="checkbox" name="also_block" defaultChecked /> Also block this student
             </label>
-            <button type="submit">Send report</button>
+            <button type="submit" className="btn-danger align-start">Send report</button>
           </form>
         </div>
       </details>

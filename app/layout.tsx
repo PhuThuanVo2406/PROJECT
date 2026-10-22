@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import Link from "next/link";
 import Nav from "@/components/Nav";
-import Spotlight from "@/components/Spotlight";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import "./globals.css";
 
@@ -20,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#050b1a",
+  themeColor: "#081226",
   colorScheme: "dark",
 };
 
@@ -46,7 +45,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${inter.variable} ${serif.variable}`}>
       <body>
-        <Spotlight />
         {isSupabaseConfigured ? (
           <>
             <Nav />

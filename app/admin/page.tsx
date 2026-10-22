@@ -52,8 +52,12 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
   ];
 
   return (
-    <div className="stack">
-      <h1>Admin</h1>
+    <div className="stack-lg">
+      <header className="page-header">
+        <div>
+          <h1>Admin</h1>
+        </div>
+      </header>
       <div className="grid">
         {tiles.map(([label, key]) => (
           <div key={key} className="card" style={{ marginBottom: 0 }}>

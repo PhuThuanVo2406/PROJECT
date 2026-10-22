@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, CalendarClock, Clock, EyeOff, Lock, MapPin, Radio, Sparkles, Users } from "lucide-react";
+import { ArrowRight, CalendarClock, Clock, EyeOff, Lock, MapPin, Radio, Users } from "lucide-react";
 import { requireUser } from "@/lib/supabase/server";
 import CampusOptions from "@/components/CampusOptions";
 import { DURATIONS, GOALS, SPOTS, SUBJECTS, isSpot, type Goal } from "@/lib/constants";
@@ -52,8 +52,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
 
       <header className="page-header animate-in">
         <div>
-          <p className="eyebrow">Dashboard</p>
-          <h1>Welcome back, <span className="text-gradient">{firstName}</span></h1>
+          <h1>Welcome back, {firstName}</h1>
           <p>
             {active
               ? "You're checked in. Here's who is studying around you."
@@ -107,7 +106,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
           <span className={`icon-tile ${active ? "success" : "neutral"}`}><Radio size={20} aria-hidden="true" /></span>
           <div>
             <p className="stat-label">Your status</p>
-            <p className="stat-value" style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <p className="stat-value stat-status">
               {active && <span className="live-dot" aria-hidden="true" />}
               {active ? "Studying now" : "Not checked in"}
             </p>
@@ -120,20 +119,20 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
 
       {active ? (
         <section className="card status-card animate-in" aria-labelledby="status-title">
-          <div className="row" style={{ alignItems: "flex-start", gap: 16 }}>
-            <div className="stack-sm" style={{ flex: 1, minWidth: 240 }}>
-              <span className="live-pill" style={{ alignSelf: "flex-start" }}>
+          <div className="status-layout">
+            <div className="stack-sm">
+              <span className="live-pill">
                 <span className="live-dot" aria-hidden="true" />
                 You&apos;re studying now
               </span>
-              <h2 id="status-title" style={{ margin: "4px 0 0" }}>{active.subject}</h2>
+              <h2 id="status-title" className="status-title">{active.subject}</h2>
               <div className="chips">
-                <span className="badge neutral">{GOALS[active.goal as Goal]}</span>
+                <span className="badge outline">{GOALS[active.goal as Goal]}</span>
               </div>
-              <ul className="person-meta" style={{ marginTop: 4 }}>
+              <ul className="person-meta">
                 <li>
                   <MapPin size={16} aria-hidden="true" />
-                  <span>{campusName(active.campus_id)}{activeSpot && ` · ${activeSpot}`}</span>
+                  <span>{campusName(active.campus_id)}{activeSpot && `, ${activeSpot}`}</span>
                 </li>
                 <li>
                   <Clock size={16} aria-hidden="true" />
@@ -148,7 +147,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
           </div>
         </section>
       ) : (
-        <form action={checkIn} id="check-in" className="card animate-in" style={{ scrollMarginTop: 88 }}>
+        <form action={checkIn} id="check-in" className="card animate-in">
           <div className="card-header">
             <span className="icon-tile accent"><Radio size={20} aria-hidden="true" /></span>
             <div>
@@ -185,7 +184,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
                 </select>
               </label>
             </div>
-            <div className="form-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
+            <div className="form-grid form-grid-2">
               <label>
                 <span>Where on campus <span className="field-hint">(optional)</span></span>
                 <select name="spot" defaultValue="">
@@ -205,8 +204,8 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
             {error && (
               <p className="alert error" role="alert">{error}</p>
             )}
-            <div className="row" style={{ justifyContent: "space-between" }}>
-              <p className="caption row" style={{ gap: 6, margin: 0 }}>
+            <div className="form-foot">
+              <p className="caption with-icon">
                 <Lock size={14} aria-hidden="true" />
                 Only signed-in students can see where you are.
               </p>
@@ -222,9 +221,8 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
       {active && matches.length > 0 && (
         <section className="stack" aria-labelledby="matches-title">
           <div className="section-header">
-            <Sparkles size={18} aria-hidden="true" style={{ color: "var(--accent-ink)", alignSelf: "center" }} />
             <h2 id="matches-title">Suggested study buddies</h2>
-            <span className="badge accent">{matches.length}</span>
+            <span className="badge neutral">{matches.length}</span>
           </div>
           <div className="grid-cards animate-in-list">
             {matches.map((m, i) => (
@@ -239,7 +237,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
       <section className="stack" aria-labelledby="now-title">
         <div className="section-header">
           <h2 id="now-title">Studying now</h2>
-          <span className="badge neutral">{others.length}</span>
+          <span className="badge accent">{others.length}</span>
           <Link href="/busy-times" className="btn btn-ghost btn-sm spacer">
             <CalendarClock size={16} aria-hidden="true" />
             Busy times

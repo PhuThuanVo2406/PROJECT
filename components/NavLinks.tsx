@@ -72,7 +72,7 @@ export default function NavLinks({ isAdmin }: { isAdmin: boolean }) {
       <button
         type="button"
         className="btn-ghost icon-btn nav-toggle"
-        style={{ order: 3 }}
+       
         aria-label={open ? "Close menu" : "Open menu"}
         aria-expanded={open}
         aria-controls="mobile-nav"

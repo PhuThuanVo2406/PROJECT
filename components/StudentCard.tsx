@@ -30,20 +30,16 @@ export default function StudentCard({ s, reasons }: { s: ActiveStudent; reasons?
   return (
     <article className="card card-hover person-card" aria-label={`${s.name}, studying ${s.subject}`}>
       <div className="person-head">
-        <Avatar name={s.name} seed={s.userId} />
-        <div style={{ flex: 1 }}>
+        <Avatar name={s.name} seed={s.userId} live />
+        <div className="grow">
           <p className="person-name">{s.name}</p>
           <p className="person-sub">{s.major ?? "Student"}</p>
         </div>
-        <span className="live-pill" style={{ alignSelf: "flex-start" }}>
-          <span className="live-dot" aria-hidden="true" />
-          Studying now
-        </span>
       </div>
 
       <div className="chips">
         <span className="badge">{s.subject}</span>
-        <span className="badge neutral">{GOALS[s.goal]}</span>
+        <span className="badge outline">{GOALS[s.goal]}</span>
       </div>
 
       <ul className="person-meta">
@@ -60,8 +56,8 @@ export default function StudentCard({ s, reasons }: { s: ActiveStudent; reasons?
         <li>
           <Clock size={16} aria-hidden="true" />
           <span>
-            Checked in {clockTime(s.startedAt)} · <RelativeTime since={s.startedAt} />
-            <span className="muted"> · <Countdown until={s.expiresAt} /></span>
+            Checked in {clockTime(s.startedAt)} (<RelativeTime since={s.startedAt} />)
+            <span className="muted block"><Countdown until={s.expiresAt} /></span>
           </span>
         </li>
       </ul>
@@ -69,7 +65,7 @@ export default function StudentCard({ s, reasons }: { s: ActiveStudent; reasons?
       {s.studyStyles.length > 0 && (
         <div className="chips" aria-label="Study styles">
           {s.studyStyles.map((st) => (
-            <span key={st} className="badge accent">{STUDY_STYLES[st as keyof typeof STUDY_STYLES] ?? st}</span>
+            <span key={st} className="badge neutral">{STUDY_STYLES[st as keyof typeof STUDY_STYLES] ?? st}</span>
           ))}
         </div>
       )}
@@ -77,7 +73,7 @@ export default function StudentCard({ s, reasons }: { s: ActiveStudent; reasons?
       {s.note && <p className="person-note">{s.note}</p>}
 
       {reasons && reasons.length > 0 && (
-        <p className="person-reasons" style={{ margin: 0 }}>
+        <p className="person-reasons">
           <Sparkles size={14} aria-hidden="true" />
           Good match: {reasons.join(", ")}
         </p>
