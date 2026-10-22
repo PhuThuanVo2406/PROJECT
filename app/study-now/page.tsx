@@ -26,7 +26,6 @@ export default async function StudyNow({
     <div className="stack-lg">
       <header className="page-header animate-in">
         <div>
-          <p className="eyebrow">Directory / Right now</p>
           <h1>Studying now</h1>
           <p>Classmates checked in across every campus right now.</p>
         </div>
@@ -36,7 +35,7 @@ export default async function StudyNow({
         </Link>
       </header>
       <form className="card animate-in" method="get" role="search" aria-label="Filter classmates">
-        <div className="form-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", alignItems: "end" }}>
+        <div className="form-grid filter-grid">
         <label>
           Campus
           <select name="campus" defaultValue={sp.campus ?? ""}>

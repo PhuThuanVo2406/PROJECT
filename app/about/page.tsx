@@ -102,7 +102,6 @@ export default function AboutPage() {
     <div className="stack-lg about">
       <header className="page-header animate-in">
         <div>
-          <p className="eyebrow">About Us</p>
           <h1>College Project: Study Buddy</h1>
         </div>
       </header>

@@ -37,7 +37,6 @@ export default async function BusyTimes({ searchParams }: { searchParams: Promis
     <div className="stack-lg">
       <header className="page-header animate-in">
         <div>
-          <p className="eyebrow">Planner / Last 4 weeks</p>
           <h1>Busy times</h1>
           <p>
             How many students were checked in at each hour over the last 4 weeks (Houston time). Use it to pick
@@ -50,8 +49,8 @@ export default async function BusyTimes({ searchParams }: { searchParams: Promis
         </Link>
       </header>
 
-      <form className="card row animate-in" method="get" style={{ alignItems: "flex-end" }}>
-        <label style={{ flex: 1, minWidth: 220 }}>
+      <form className="card filter-bar animate-in" method="get">
+        <label>
           Campus
           <select name="campus" defaultValue={sp.campus ?? ""}>
             <option value="">All campuses</option>
@@ -101,7 +100,7 @@ export default async function BusyTimes({ searchParams }: { searchParams: Promis
                 </tbody>
               </table>
             </div>
-            <div className="row muted" aria-hidden="true">
+            <div className="heatmap-legend" aria-hidden="true">
               <span>Fewer</span>
               {[0, 15, 43, 71, 100].map((p) => (
                 <span
