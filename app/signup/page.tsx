@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, CircleAlert, LoaderCircle, Lock, MailCheck } from "lucide-react";
+import { CircleAlert, LoaderCircle, Lock, MailCheck } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { STUDENT_EMAIL_DOMAIN, isStudentEmail } from "@/lib/constants";
 import { LogoMark } from "@/components/ui/Logo";
@@ -118,7 +118,6 @@ export default function SignupPage() {
           <button type="submit" className="btn-lg btn-block" disabled={pending} aria-busy={pending}>
             {pending && <LoaderCircle size={18} className="spin" aria-hidden="true" />}
             {pending ? "Creating account..." : "Create account"}
-            {!pending && <ArrowRight className="arrow" aria-hidden="true" />}
           </button>
         </div>
         <p className="auth-foot">

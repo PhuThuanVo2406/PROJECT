@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Building2, Clock, MapPin, Sparkles } from "lucide-react";
+import { Building2, Clock, MapPin, MessageCircle, Sparkles } from "lucide-react";
 import { GOALS, SPOTS, STUDY_STYLES, isSpot, type Goal } from "@/lib/constants";
 import Avatar from "./ui/Avatar";
 import Countdown from "./Countdown";
@@ -80,9 +80,9 @@ export default function StudentCard({ s, reasons }: { s: ActiveStudent; reasons?
       )}
 
       <div className="person-actions">
-        <Link href={`/messages/${s.userId}`} className="btn btn-link" aria-label={`Message ${s.name}`}>
+        <Link href={`/messages/${s.userId}`} className="btn btn-outline" aria-label={`Message ${s.name}`}>
+          <MessageCircle aria-hidden="true" />
           Message
-          <ArrowRight className="arrow" aria-hidden="true" />
         </Link>
       </div>
     </article>

@@ -133,15 +133,17 @@ export default function AboutPage() {
       <section className="card about-section" aria-labelledby="about-us">
         <h2 id="about-us">About Us</h2>
 
-        <img
-          className="about-team-photo"
-          src="/team/omega-sigma-officers-2026.jpg"
-          alt="Omega Sigma Chapter officers, 2026-2027"
-          loading="lazy"
-          decoding="async"
-          width={1400}
-          height={1493}
-        />
+        <figure className="about-photo notched">
+          <img
+            className="about-team-photo"
+            src="/team/omega-sigma-officers-2026.jpg"
+            alt="Omega Sigma Chapter officers, 2026-2027"
+            loading="lazy"
+            decoding="async"
+            width={1400}
+            height={1493}
+          />
+        </figure>
 
         <h3 className="about-subheading">Omega Sigma Chapter Officers, 2026-2027 Academic Year</h3>
         <ul className="officer-list">

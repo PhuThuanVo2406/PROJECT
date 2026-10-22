@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, CalendarClock, Clock, EyeOff, Lock, MapPin, Radio, Users } from "lucide-react";
+import { CalendarClock, Clock, EyeOff, Lock, MapPin, Radio, Users } from "lucide-react";
 import { requireUser } from "@/lib/supabase/server";
 import CampusOptions from "@/components/CampusOptions";
 import { DURATIONS, GOALS, SPOTS, SUBJECTS, isSpot, type Goal } from "@/lib/constants";
@@ -67,7 +67,6 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
         ) : (
           <a href="#check-in" className="btn btn-lg">
             I&apos;m studying now
-            <ArrowRight className="arrow" aria-hidden="true" />
           </a>
         )}
       </header>
@@ -118,7 +117,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
       </section>
 
       {active ? (
-        <section className="card status-card animate-in" aria-labelledby="status-title">
+        <section className="card status-card notched animate-in" aria-labelledby="status-title">
           <div className="status-layout">
             <div className="stack-sm">
               <span className="live-pill">
@@ -140,9 +139,9 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
                 </li>
               </ul>
             </div>
-            <form action={checkOut}>
+            <form action={checkOut} className="notch-slot">
               <input type="hidden" name="check_in_id" value={active.id} />
-              <SubmitButton className="btn-outline" pendingText="Checking out...">Check out</SubmitButton>
+              <SubmitButton className="btn-outline btn-sm" pendingText="Checking out...">Check out</SubmitButton>
             </form>
           </div>
         </section>
@@ -211,7 +210,6 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
               </p>
               <SubmitButton className="btn-lg" pendingText="Checking in...">
                 Check in
-                <ArrowRight className="arrow" aria-hidden="true" />
               </SubmitButton>
             </div>
           </div>
