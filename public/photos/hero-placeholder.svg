@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 960" width="960" height="960">
+  <!-- Placeholder: a study table. Swap for a real photo of students studying. -->
+  <g fill="none" stroke="#16181d" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+    <rect x="-4" y="-4" width="968" height="968" fill="#eef0f3" stroke="none"/>
+    <g transform="translate(0 70)">
+    <!-- window -->
+    <rect x="110" y="120" width="320" height="380" rx="18" fill="#f9fafb"/>
+    <path d="M270 120v380M110 310h320"/>
+    <path d="M150 460c40-60 90-70 130-40s70 10 110-30" stroke="#c9ced6"/>
+    <!-- pendant lamp -->
+    <path d="M700 -80v252"/>
+    <path d="M640 236l20-64h80l20 64z" fill="#ffffff"/>
+    <path d="M684 236a16 16 0 0 0 32 0" />
+    <!-- desk -->
+    <rect x="-4" y="660" width="968" height="308" fill="#e2e5ea" stroke="none"/>
+    <path d="M-4 660h968"/>
+    <path d="M-4 690h968" stroke="#c9ced6"/>
+    <!-- books -->
+    <rect x="70" y="606" width="190" height="54" rx="6" fill="#23408e"/>
+    <path d="M92 624h120" stroke="#ffffff" stroke-width="3"/>
+    <rect x="90" y="556" width="160" height="50" rx="6" fill="#ffffff"/>
+    <path d="M232 556v50"/>
+    <rect x="80" y="512" width="176" height="44" rx="6" fill="#dfe2e7"/>
+    <!-- laptop -->
+    <rect x="300" y="408" width="320" height="222" rx="14" fill="#ffffff"/>
+    <rect x="324" y="432" width="272" height="174" rx="6" fill="#e9ebef" stroke="none"/>
+    <path d="M348 466h120M348 494h190M348 522h150M348 550h170" stroke="#b9bdc6" stroke-width="6"/>
+    <path d="M268 630h384l18 30H250z" fill="#ffffff"/>
+    <!-- mug with pencils -->
+    <rect x="688" y="566" width="80" height="94" rx="12" fill="#ffffff"/>
+    <path d="M768 588c26 0 34 14 34 26s-8 26-34 26"/>
+    <path d="M688 600h80" stroke="#23408e" stroke-width="6"/>
+    <path d="M708 536c-12-16 12-24 0-40M738 536c-12-16 12-24 0-40" stroke="#b9bdc6"/>
+    <!-- plant -->
+    <path d="M820 580h104l-12 80h-80z" fill="#dfe2e7"/>
+    <path d="M872 580c0-60-10-110-40-150"/>
+    <path d="M872 580c4-50 20-90 50-120"/>
+    <path d="M832 430c-34 4-52 30-44 62 30 2 50-22 44-62z" fill="#ffffff"/>
+    <path d="M922 460c-30-8-58 10-60 40 28 10 54-6 60-40z" fill="#ffffff"/>
+    <path d="M872 520c-30-14-60-4-70 24 26 16 56 8 70-24z" fill="#ffffff"/>
+    </g>
+  </g>
+</svg>

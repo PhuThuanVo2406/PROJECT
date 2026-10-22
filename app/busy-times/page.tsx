@@ -89,7 +89,7 @@ export default async function BusyTimes({ searchParams }: { searchParams: Promis
                           <td
                             key={h}
                             title={label}
-                            style={{ background: n === 0 ? undefined : `color-mix(in srgb, var(--accent) ${pct}%, var(--surface))` }}
+                            style={{ background: n === 0 ? undefined : `color-mix(in srgb, var(--heat) ${pct}%, var(--surface))` }}
                           >
                             <span className="sr-only">{label}</span>
                           </td>
@@ -106,7 +106,7 @@ export default async function BusyTimes({ searchParams }: { searchParams: Promis
                 <span
                   key={p}
                   className="heatmap-swatch"
-                  style={{ background: p === 0 ? undefined : `color-mix(in srgb, var(--accent) ${p}%, var(--surface))` }}
+                  style={{ background: p === 0 ? undefined : `color-mix(in srgb, var(--heat) ${p}%, var(--surface))` }}
                 />
               ))}
               <span>More (busiest hour: {max})</span>

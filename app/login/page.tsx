@@ -3,7 +3,7 @@
 import { Suspense, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ArrowRight, CircleAlert, CircleCheck, LoaderCircle, Lock } from "lucide-react";
+import { CircleAlert, CircleCheck, LoaderCircle, Lock } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { STUDENT_EMAIL_DOMAIN } from "@/lib/constants";
 import { LogoMark } from "@/components/ui/Logo";
@@ -77,7 +77,6 @@ function LoginForm() {
           <button type="submit" className="btn-lg btn-block" disabled={pending} aria-busy={pending}>
             {pending && <LoaderCircle size={18} className="spin" aria-hidden="true" />}
             {pending ? "Logging in..." : "Log in"}
-            {!pending && <ArrowRight className="arrow" aria-hidden="true" />}
           </button>
         </div>
         <p className="auth-foot">
