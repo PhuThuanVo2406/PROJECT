@@ -118,6 +118,33 @@
   --duration: 160ms;
   --duration-slow: 420ms;
 
+  /* Home hero "fluid ink": a dark screen with WebGL ink behind the copy.
+     Text contrast is checked against the scrim over the brightest ink. */
+  --font-hero: var(--font-onest), var(--font-sans);
+  --ink-base: #04050c;               /* behind the ink (matches the fluid's base) */
+  --ink-heading: #eef0f6;            /* headline and bright text */
+  --ink-muted: #b9becf;              /* nav links, badge, footer line (on glass or the edge scrim) */
+  --ink-sub: #d5d9e5;                /* sub-line: 5.3:1 even over white ink behind the scrim */
+  --ink-on-media: #ffffff;           /* brand on the ink */
+  --ink-action: #ffffff;             /* white pill */
+  --ink-action-hover: rgb(255 255 255 / 0.85);
+  --ink-action-fg: #2f2f33;          /* 12.9:1 on the white pill */
+  --ink-focus: rgb(255 255 255 / 0.7);
+  --ink-glass-fill: rgb(255 255 255 / 0.08);
+  --ink-glass-hover: rgb(255 255 255 / 0.14);
+  --ink-glass-border: rgb(255 255 255 / 0.16);
+  --ink-glass-tint: rgb(4 5 12 / 0.5);  /* dark layer under the glass so muted text stays AA */
+  --ink-scrim: rgb(4 5 12 / 0.46);
+  --ink-scrim-strong: rgb(4 5 12 / 0.68);
+  --ink-scrim-soft: rgb(4 5 12 / 0.12);
+  --ink-live: #5ee6ff;               /* "studying now" dot on the dark badge */
+  --ink-still-1: rgb(0 200 255 / 0.55);   /* the still gradient: cyan, violet, magenta */
+  --ink-still-2: rgb(200 40 255 / 0.5);
+  --ink-still-3: rgb(60 90 255 / 0.45);
+  --ink-fast: 150ms;
+  --ink-ease: cubic-bezier(0.2, 0, 0, 1);
+  --ink-ease-out: cubic-bezier(0.33, 1, 0.68, 1); /* easeOutCubic */
+
   --nav-height: 72px;
   --container: 1200px;
 
@@ -727,32 +754,181 @@ button.secondary:hover, .button.secondary:hover, .btn-outline:hover {
 .home { gap: var(--space-16); }
 @media (min-width: 768px) { .home { gap: var(--space-24); } }
 
-.hero {
-  display: grid; gap: var(--space-10); align-items: center;
-  padding: var(--space-2) 0 0;
-}
-@media (min-width: 900px) { .hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-16); padding: var(--space-8) 0 0; } }
-.hero-copy { display: flex; flex-direction: column; }
-.hero h1 { font-size: 2.5rem; font-weight: 700; line-height: 1.05; letter-spacing: -0.035em; max-width: 13ch; margin: var(--space-5) 0 var(--space-5); }
-@media (min-width: 640px) { .hero h1 { font-size: var(--text-4xl); } }
-@media (min-width: 1100px) { .hero h1 { font-size: var(--text-5xl); } }
-.hero p { font-size: var(--text-md); color: var(--text-secondary); max-width: 46ch; margin: 0; }
-.hero .row { margin-top: var(--space-8); }
-@media (max-width: 479px) { .hero .row .btn { flex: 1; } }
+/* --------------------------------------------------------------------------
+   Home hero: "fluid ink". A full-screen dark hero with WebGL ink behind a
+   scrim, a glass nav pill and words that rise in one by one. Sizes use --u,
+   a unit that scales with the screen like a fixed design would (16px at
+   1440 and 1920 wide, 16px at 360 wide on phones).
+   -------------------------------------------------------------------------- */
 
-.hero-media {
-  margin: 0; aspect-ratio: 5 / 4; background: var(--surface);
-  --notch-w: 42%; --notch-h: 64px;
+/* The hero brings its own nav, so the site nav and page padding step aside */
+body:has(.ink) > .nav { display: none; }
+body:has(.ink) > main.container { max-width: none; padding: 0; }
+body:has(.ink) { scroll-padding-top: var(--space-6); }
+body:has(.ink) .home { padding-top: var(--space-16); }
+@media (min-width: 768px) { body:has(.ink) .home { padding-top: var(--space-24); } }
+
+.ink {
+  --u: 16px;
+  position: relative; isolation: isolate;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 100vh; min-height: 100lvh; width: 100%; overflow: hidden;
+  padding: calc(6 * var(--u)) calc(1.25 * var(--u));
+  text-align: center; font-family: var(--font-hero); color: var(--ink-heading);
+  /* Still ink: shows before the fluid starts, and stays when motion is reduced or WebGL is missing */
+  background:
+    radial-gradient(38% 46% at 26% 34%, var(--ink-still-1), transparent 70%),
+    radial-gradient(34% 42% at 74% 62%, var(--ink-still-2), transparent 70%),
+    radial-gradient(30% 36% at 58% 22%, var(--ink-still-3), transparent 70%),
+    var(--ink-base);
 }
-@media (min-width: 900px) { .hero-media { aspect-ratio: 1 / 1; --notch-w: 38%; --notch-h: 80px; } }
-.hero-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
-/* Live count sits in the notch */
-.notch-tag {
-  position: absolute; z-index: 2; top: 0; right: 0; width: var(--notch-w); height: var(--notch-h);
-  display: flex; align-items: center; justify-content: flex-end; gap: 8px; padding-left: var(--space-4);
-  font-size: var(--text-sm); color: var(--text-secondary); white-space: nowrap;
+@media (max-width: 1920px) { .ink { --u: 0.833333vw; } }
+@media (max-width: 1440px) { .ink { --u: 1.111111vw; } }
+@media (max-width: 1024px) { .ink { --u: 1.5625vw; } }
+@media (max-width: 640px)  { .ink { --u: 4.444444vw; } }
+@media (min-width: 640px)  { .ink { padding-inline: calc(2.5 * var(--u)); } }
+
+.ink-canvas {
+  position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%;
+  pointer-events: none; opacity: 0; transition: opacity 600ms var(--ink-ease);
 }
-.notch-tag strong { font-size: var(--text-md); font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.ink-canvas.on { opacity: 1; }
+
+/* Darkens the middle for the copy, plus the top and bottom edges for the nav and footer line */
+.ink-scrim {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    linear-gradient(to bottom, var(--ink-scrim-strong) 0, transparent calc(7 * var(--u))),
+    linear-gradient(to top, var(--ink-scrim-strong) 0, transparent calc(6 * var(--u))),
+    radial-gradient(115% 95% at 50% 46%,
+      var(--ink-scrim-strong) 0%, var(--ink-scrim-strong) 24%, var(--ink-scrim) 52%, var(--ink-scrim-soft) 100%);
+}
+
+/* Nav */
+.ink-nav {
+  position: absolute; inset-inline: 0; top: 0; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--u);
+  padding: calc(1.25 * var(--u));
+  --reveal-delay: 150ms;
+}
+.ink-brand {
+  display: flex; align-items: center; gap: calc(0.6 * var(--u)); min-height: 44px;
+  font-weight: 500; font-size: calc(1.15 * var(--u)); letter-spacing: -0.01em;
+  color: var(--ink-on-media); text-decoration: none; text-shadow: 0 1px 12px var(--ink-scrim-strong);
+}
+.ink-brand:hover { color: var(--ink-on-media); }
+.ink-brand .brand-mark { width: calc(1.35 * var(--u)); height: calc(1.35 * var(--u)); }
+.ink-brand .brand-mark .frame { stroke: currentColor; }
+.ink-brand .brand-mark .lit { fill: currentColor; }
+.ink-brand .brand-mark .unlit { fill: var(--ink-glass-border); }
+
+.ink-links {
+  display: none;
+  position: absolute; left: 50%; transform: translateX(-50%);
+  height: calc(3 * var(--u)); align-items: center; gap: calc(2.25 * var(--u));
+  border-radius: var(--shape-pill); padding: 0 calc(1.75 * var(--u));
+  border: 1px solid var(--ink-glass-border);
+  background: linear-gradient(var(--ink-glass-fill), var(--ink-glass-fill)), var(--ink-glass-tint);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+}
+.ink-links a, .ink-text-link {
+  font-size: calc(0.95 * var(--u)); color: var(--ink-muted); text-decoration: none; white-space: nowrap;
+  transition: color var(--ink-fast) var(--ink-ease);
+}
+.ink-links a:hover, .ink-text-link:hover { color: var(--ink-heading); }
+.ink-nav-right { display: flex; align-items: center; gap: calc(1.5 * var(--u)); }
+.ink-text-link { display: none; color: var(--ink-heading); text-shadow: 0 1px 12px var(--ink-scrim-strong); }
+
+/* White pill button (and a glass one for the second action) */
+.ink-pill {
+  display: inline-flex; align-items: center; justify-content: center; white-space: nowrap;
+  height: calc(2.5 * var(--u)); min-height: 40px; padding: 0 calc(1.125 * var(--u));
+  border-radius: var(--shape-pill); background: var(--ink-action); color: var(--ink-action-fg);
+  font-size: calc(0.85 * var(--u)); font-weight: 500; text-decoration: none;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+  transition: background var(--ink-fast) var(--ink-ease), color var(--ink-fast) var(--ink-ease);
+}
+.ink-pill:hover { background: var(--ink-action-hover); color: var(--ink-action-fg); }
+.ink-pill:focus-visible, .ink a:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--ink-focus); border-radius: var(--shape-pill); }
+.ink-pill-lg { height: calc(3.25 * var(--u)); padding: 0 calc(1.5 * var(--u)); font-size: calc(0.95 * var(--u)); }
+.ink-pill-glass {
+  color: var(--ink-heading); border: 1px solid var(--ink-glass-border);
+  background: linear-gradient(var(--ink-glass-fill), var(--ink-glass-fill)), var(--ink-glass-tint);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+}
+.ink-pill-glass:hover { color: var(--ink-heading); background: linear-gradient(var(--ink-glass-hover), var(--ink-glass-hover)), var(--ink-glass-tint); }
+
+/* Centre column */
+.ink-column {
+  position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center;
+  width: 100%; max-width: calc(22 * var(--u));
+}
+.ink-badge {
+  display: inline-flex; align-items: center; gap: calc(0.5 * var(--u)); margin: 0;
+  border-radius: var(--shape-pill); padding: calc(0.4 * var(--u)) calc(0.875 * var(--u));
+  font-size: calc(0.72 * var(--u)); line-height: 1.4; color: var(--ink-muted);
+  border: 1px solid var(--ink-glass-border);
+  background: linear-gradient(var(--ink-glass-fill), var(--ink-glass-fill)), var(--ink-glass-tint);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  --reveal-delay: 320ms;
+}
+.ink-live { width: 7px; height: 7px; border-radius: 50%; background: var(--ink-live); box-shadow: 0 0 8px var(--ink-live); flex: none; }
+.ink-title {
+  margin: calc(1.25 * var(--u)) 0 0; max-width: calc(20 * var(--u));
+  font-family: var(--font-hero); font-size: calc(2 * var(--u)); font-weight: 500;
+  line-height: 1.1; letter-spacing: -0.02em; color: var(--ink-heading); text-wrap: balance;
+  text-shadow: 0 2px 24px var(--ink-scrim-strong);
+  --word-delay: 480ms; --word-step: 85ms; --word-dur: 720ms; --word-from: 26px;
+}
+.ink-sub {
+  margin: var(--u) 0 0; max-width: calc(20 * var(--u));
+  font-size: var(--u); line-height: 1.5; color: var(--ink-sub); text-wrap: pretty;
+  text-shadow: 0 1px 16px var(--ink-scrim-strong);
+  --word-delay: 1150ms; --word-step: 22ms; --word-dur: 600ms; --word-from: 14px;
+}
+.ink-actions {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: calc(0.75 * var(--u));
+  margin-top: calc(1.75 * var(--u));
+  --reveal-delay: 1450ms;
+}
+.ink-foot {
+  position: absolute; inset-inline: 0; bottom: 0; z-index: 20;
+  display: flex; justify-content: center; padding: calc(1.25 * var(--u));
+  font-size: calc(0.72 * var(--u)); color: var(--ink-muted);
+  text-shadow: 0 1px 12px var(--ink-scrim-strong);
+  --reveal-delay: 1650ms;
+}
+
+@media (min-width: 640px) {
+  .ink-nav { padding: calc(1.75 * var(--u)) calc(2.5 * var(--u)); }
+  .ink-brand { font-size: calc(1.375 * var(--u)); }
+  .ink-brand .brand-mark { width: calc(1.5 * var(--u)); height: calc(1.5 * var(--u)); }
+  .ink-links, .ink-text-link { display: flex; }
+  .ink-pill { height: calc(2.75 * var(--u)); padding: 0 calc(1.375 * var(--u)); font-size: calc(0.95 * var(--u)); }
+  .ink-pill-lg { height: calc(3.5 * var(--u)); padding: 0 calc(1.75 * var(--u)); font-size: calc(1.05 * var(--u)); }
+  .ink-column { max-width: calc(40 * var(--u)); }
+  .ink-badge { font-size: calc(0.8 * var(--u)); }
+  .ink-title { margin-top: calc(1.75 * var(--u)); max-width: calc(34 * var(--u)); font-size: calc(3.5 * var(--u)); }
+  .ink-sub { margin-top: calc(1.25 * var(--u)); max-width: calc(34 * var(--u)); font-size: calc(1.1 * var(--u)); }
+  .ink-actions { margin-top: calc(2.5 * var(--u)); }
+  .ink-foot { padding: calc(1.5 * var(--u)) calc(2.5 * var(--u)); font-size: calc(0.8 * var(--u)); }
+}
+@media (min-width: 1024px) {
+  .ink-column { max-width: calc(52 * var(--u)); }
+  .ink-title { max-width: calc(46 * var(--u)); font-size: calc(5 * var(--u)); }
+  .ink-sub { max-width: calc(40 * var(--u)); font-size: calc(1.2 * var(--u)); }
+}
+
+/* Entrance: blocks rise in on a stagger, the headline and sub-line word by word.
+   Reduced motion turns all of this off (see the Motion section). */
+.ink-reveal { animation: ink-rise 700ms var(--ink-ease) var(--reveal-delay, 0ms) both; --reveal-from: translateY(calc(1.25 * var(--u))); }
+.ink-nav.ink-reveal { --reveal-from: translateY(calc(-0.75 * var(--u))); }
+.ink-word {
+  display: inline-block; white-space: pre;
+  animation: ink-word var(--word-dur) var(--ink-ease-out) calc(var(--word-delay) + var(--i) * var(--word-step)) both;
+}
+@keyframes ink-rise { from { opacity: 0; transform: var(--reveal-from); } to { opacity: 1; transform: none; } }
+@keyframes ink-word { from { opacity: 0; transform: translateY(var(--word-from)); } to { opacity: 1; transform: none; } }
 
 .home-section { display: flex; flex-direction: column; gap: var(--space-10); }
 .home-section .section-header { justify-content: space-between; }

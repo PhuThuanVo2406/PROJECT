@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Onest, Plus_Jakarta_Sans } from "next/font/google";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
@@ -10,6 +10,15 @@ const jakarta = Plus_Jakarta_Sans({
   weight: ["400", "500", "600", "700"],
   display: "swap",
   variable: "--font-jakarta",
+});
+
+// Onest is only used by the home hero.
+const onest = Onest({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  display: "swap",
+  variable: "--font-onest",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -42,7 +51,7 @@ function SetupNeeded() {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={jakarta.variable}>
+    <html lang="en" className={`${jakarta.variable} ${onest.variable}`}>
       <body>
         {isSupabaseConfigured ? (
           <>
